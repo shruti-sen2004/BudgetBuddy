@@ -143,6 +143,7 @@
   }
   .list li.plus span{
     color: #2ecc71;
+    margin-right: 30px;
   }
   .list li.plus{
     border-left: 10px solid #2ecc71;
@@ -150,9 +151,13 @@
   
   .list li.minus span{
     color: #c0392b;
+    margin-right: 30px;
   }
   .list li.minus{
     border-left: 10px solid #c0392b;
+  }
+  li {
+    position: relative; 
   }
   
   .delete-btn {
@@ -163,16 +168,18 @@
     font-size: 20px;
     line-height: 20px;
     padding: 2px 5px;
-    
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(-100%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
+    display: inline-block; 
+    vertical-align: middle;
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    bottom: 0;
+    width: 30px;
   }
   
   .list li:hover .delete-btn {
-    opacity: 1;
+    opacity: 1; 
   }
