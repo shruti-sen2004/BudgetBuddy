@@ -5,27 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <h1>Expense Tracker</h1>  
+  <h1><i class="fas fa-money-bill-wave"></i> Budget Buddy</h1> 
+  <p>Know Your Spend, Save to the End!</p> 
   <div class="container">
     <h4>Your Balance</h4>
     <h1 id="balance">$0.00</h1>
     <div class="inc-exp-container">
       <div>
         <h4>Income</h4>
-        <p id="income" class="income">+$0.00</p>
+        <p id="money-plus" class="money-plus">+$0.00</p>
       </div>
       <div>
         <h4>Expense</h4>
-        <p id="expense" class="expense">-$0.00</p>
+        <p id="money-minus" class="money-minus">-$0.00</p>
       </div>
   </div>
 
     <h3>History</h3>
     <ul id="list" class="list">
-        <li class="minus">
-        Cash <span>-$400</span><button class="delete-btn">x</button>
+      <li class="minus">Cash</i><span>-$400</span><button class="delete-btn">x</button>
       </li>
     </ul>
 
