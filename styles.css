@@ -143,7 +143,7 @@ input[type="number"],
 }
 .list li.plus span {
   color: #2ecc71;
-  margin-right: 30px;
+  margin-right: 5px;
 }
 .list li.plus {
   border-left: 10px solid #2ecc71;
@@ -151,7 +151,7 @@ input[type="number"],
 
 .list li.minus span {
   color: #c0392b;
-  margin-right: 30px;
+  margin-right: 5px;
 }
 .list li.minus {
   border-left: 10px solid #c0392b;
@@ -184,3 +184,10 @@ li {
   opacity: 1;
 }
 
+.list li span {
+  transition: margin-right 0.3s ease;
+}
+
+.list li:hover span {
+  margin-right: 30px;
+}
