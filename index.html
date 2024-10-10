@@ -1,57 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expense Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-  <h1><i class="fas fa-money-bill-wave"></i> Budget Buddy</h1> 
-  <p>Know Your Spend, Save to the End!</p> 
-  <div class="container">
-    <h4>Your Balance</h4>
-    <h1 id="balance">$0.00</h1>
-    <div class="inc-exp-container">
-      <div>
-        <h4>Income</h4>
-        <p id="money-plus" class="money-plus">+$0.00</p>
-      </div>
-      <div>
-        <h4>Expense</h4>
-        <p id="money-minus" class="money-minus">-$0.00</p>
-      </div>
-  </div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="index.js" defer></script>
+  </head>
 
-    <h3>History</h3>
-    <ul id="list" class="list">
-      <li class="minus">Cash</i><span>-$400</span><button class="delete-btn">x</button>
-      </li>
-    </ul>
+  <body>
+    <h1><i class="fas fa-money-bill-wave"></i> Budget Buddy</h1>
+    <p>Know Your Spend, Save to the End!</p>
+    <div class="container">
+      <h4>Your Balance</h4>
+      <h1 id="balance">$0.00</h1>
+      <div class="inc-exp-container">
+        <div>
+          <h4>Income</h4>
+          <p id="money-plus" class="money-plus">+$0.00</p>
+        </div>
+        <div>
+          <h4>Expense</h4>
+          <p id="money-minus" class="money-minus">-$0.00</p>
+        </div>
+      </div>
 
-    <h3>Add new transaction</h3>
-    <form id="form" class="form">
+      <h3>History</h3>
+      <ul id="list" class="list">
+        <li class="minus">
+          Cash<span>-$400</span><button class="delete-btn">x</button>
+        </li>
+      </ul>
+
+      <h3>Add new transaction</h3>
+      <form id="form" class="form">
         <div class="form-control">
-            <label for="category">Category</label>
-            <select id="category">
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
-            </select>
+          <label for="category">Category</label>
+          <select id="category">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
         </div>
         <div class="form-control">
-            <label for="text">Description</label>
-            <input type="text" id="text" placeholder="Enter text...">
+          <label for="text">Description</label>
+          <input type="text" id="text" placeholder="Enter text..." />
         </div>
         <div class="form-control">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" placeholder="Enter amount..." />
+          <label for="amount">Amount</label>
+          <input type="number" id="amount" placeholder="Enter amount..." />
         </div>
-    <button class="btn">Add transaction</button>
-    </form>
-  <script src="index.js"></script>
-</body>
+        <button class="btn">Add transaction</button>
+      </form>
+    </div>
+  </body>
 </html>
+
