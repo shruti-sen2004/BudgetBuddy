@@ -201,3 +201,21 @@ li {
 .lucide.title {
   width: 32px;
 }
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.filter-container label {
+  margin-right: 10px;
+}
+
+#filter {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #dedede;
+  background-color: #e6e3f1;
+  color: #453596;
+}
