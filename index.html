@@ -34,13 +34,6 @@
       </h3>
       <form id="form" class="form">
         <div class="form-control">
-          <label for="category">Category</label>
-          <select id="category">
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-          </select>
-        </div>
-        <div class="form-control">
           <label for="text">Description</label>
           <input type="text" id="text" placeholder="Enter text..." />
         </div>
@@ -48,7 +41,10 @@
           <label for="amount">Amount</label>
           <input type="number" id="amount" placeholder="Enter amount..." />
         </div>
-        <button class="btn">Add transaction</button>
+        <div class="buttons">
+          <button class="btn income">Add income</button>
+          <button class="btn expense">Add expense</button>
+        </div>
       </form>
 
       <h3><i data-lucide="coins" class="lucide"></i> History</h3>
