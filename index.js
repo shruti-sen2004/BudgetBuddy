@@ -49,7 +49,7 @@ function addTransactionDOM(transaction) {
         ${transaction.text} <span>${sign} &#8377; ${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i data-lucide="badge-x" class="lucide"></i></button>
     `;
 
-  document.getElementById('list').appendChild(item);
+  document.getElementById('list').prepend(item);
 }
 
 function removeTransaction(id) {
