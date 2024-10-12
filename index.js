@@ -46,7 +46,7 @@ function addTransactionDOM(transaction) {
 
   item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
   item.innerHTML = `
-        ${transaction.text} <span>${sign} $ ${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+        ${transaction.text} <span>${sign} &#8377; ${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i data-lucide="badge-x" class="lucide"></i></button>
     `;
 
   document.getElementById('list').appendChild(item);
@@ -71,7 +71,7 @@ function updateDOM() {
 
 function updateBalance() {
   const balance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
-  document.getElementById('balance').innerText = `$${balance.toFixed(2)}`;
+  document.getElementById('balance').innerHTML = `&#8377;${balance.toFixed(2)}`;
 }
 
 function updateIncomeExpenses() {
@@ -83,8 +83,9 @@ function updateIncomeExpenses() {
     .filter(amount => amount < 0)
     .reduce((acc, amount) => acc + amount, 0) * -1;
 
-  document.getElementById('money-plus').innerText = `+$${income.toFixed(2)}`;
-  document.getElementById('money-minus').innerText = `-$${expense.toFixed(2)}`;
+  document.getElementById('money-plus').innerHTML = `+&#8377;${income.toFixed(2)}`;
+  document.getElementById('money-minus').innerHTML = `-&#8377;${expense.toFixed(2)}`;
+  lucide.createIcons();
 }
 
 function updateLocalStorage() {
@@ -100,6 +101,7 @@ function init() {
   updateDOM();
   updateBalance();
   updateIncomeExpenses();
+  lucide.createIcons();
 }
 
 init();

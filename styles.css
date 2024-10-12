@@ -50,13 +50,13 @@ h4 {
 }
 
 .inc-exp-container {
-  background-color: black;
+  background-color: #141b1e;
   box-shadow: var(--box-shadow);
   padding: 40px;
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 .inc-exp-container > div {
@@ -190,4 +190,14 @@ li {
 
 .list li:hover span {
   margin-right: 30px;
+}
+
+.lucide {
+  vertical-align: middle;
+  height: auto;
+  width: 20px;
+}
+
+.lucide.title {
+  width: 32px;
 }
