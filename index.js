@@ -7,7 +7,7 @@ function addTransaction(e) {
 
   const text = document.getElementById('text').value.trim();
   const amount = parseFloat(document.getElementById('amount').value);
-  const category = document.getElementById('category').value;
+  const category = e.submitter.textContent.split(' ')[1];
 
   if (text === '' || isNaN(amount)) {
     alert('Please add a text and amount');
@@ -45,7 +45,7 @@ function addTransactionDOM(transaction) {
         ${transaction.text} <span>${sign} &#8377; ${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i data-lucide="badge-x" class="lucide"></i></button>
     `;
 
-  document.getElementById('list').appendChild(item);
+  document.getElementById('list').prepend(item);
 }
 
 function removeTransaction(id) {
