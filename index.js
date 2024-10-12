@@ -5,7 +5,7 @@ document.getElementById('form').addEventListener('submit', addTransaction);
 function addTransaction(e) {
   e.preventDefault();
 
-  const category = document.getElementById('category').value;
+  const category = e.submitter.textContent.split(' ')[1];
   const text = document.getElementById('text').value;
   let amount = +document.getElementById('amount').value;
 
@@ -49,7 +49,7 @@ function addTransactionDOM(transaction) {
         ${transaction.text} <span>${sign} &#8377; ${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i data-lucide="badge-x" class="lucide"></i></button>
     `;
 
-  document.getElementById('list').appendChild(item);
+  document.getElementById('list').prepend(item);
 }
 
 function removeTransaction(id) {
