@@ -5,35 +5,31 @@ document.getElementById('form').addEventListener('submit', addTransaction);
 function addTransaction(e) {
   e.preventDefault();
 
+  const text = document.getElementById('text').value.trim();
+  const amount = parseFloat(document.getElementById('amount').value);
   const category = e.submitter.textContent.split(' ')[1];
-  const text = document.getElementById('text').value;
-  let amount = +document.getElementById('amount').value;
 
-  if (text.trim() === '' || amount === 0) {
-    alert('Please add a description and amount');
-    return;
+  if (text === '' || isNaN(amount)) {
+    alert('Please add a text and amount');
+  } else {
+    const transaction = {
+      id: generateID(),
+      text,
+      amount: category === 'expense' ? -Math.abs(amount) : Math.abs(amount),
+      category
+    };
+
+    transactions.push(transaction);
+    
+    // Remove this line:
+    // document.getElementById('filter').value = category;
+    
+    filterTransactions();
+    updateBalance();
+    updateIncomeExpenses();
+    updateLocalStorage();
+    document.getElementById('form').reset();
   }
-
-  // Adjust amount based on category
-  if (category === 'expense') {
-    amount = -Math.abs(amount);
-  } else if (category === 'income') {
-    amount = Math.abs(amount);
-  }
-
-  const transaction = {
-    id: generateID(),
-    category,
-    text,
-    amount
-  };
-
-  transactions.push(transaction);
-  addTransactionDOM(transaction);
-  updateBalance();
-  updateIncomeExpenses();
-  updateLocalStorage();
-  document.getElementById('form').reset();
 }
 
 function generateID() {
@@ -63,10 +59,10 @@ function removeTransaction(id) {
   }
 }
 
-function updateDOM() {
+function updateDOM(transactionsToDisplay = transactions) {
   const list = document.getElementById('list');
   list.innerHTML = '';
-  transactions.forEach(addTransactionDOM);
+  transactionsToDisplay.forEach(addTransactionDOM);
 }
 
 function updateBalance() {
@@ -92,6 +88,17 @@ function updateLocalStorage() {
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
+function filterTransactions() {
+  const filterValue = document.getElementById('filter').value;
+  const filteredTransactions = transactions.filter(transaction => {
+    if (filterValue === 'all') return true;
+    if (filterValue === 'income') return transaction.amount > 0;
+    if (filterValue === 'expense') return transaction.amount < 0;
+    return false;
+  });
+  updateDOM(filteredTransactions);
+}
+
 // Initialize the app
 function init() {
   const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
@@ -102,6 +109,9 @@ function init() {
   updateBalance();
   updateIncomeExpenses();
   lucide.createIcons();
+
+  // Add event listener for filter dropdown
+  document.getElementById('filter').addEventListener('change', filterTransactions);
 }
 
 init();
