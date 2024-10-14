@@ -22,8 +22,8 @@ Budget Buddy is a simple and intuitive expense tracker to help you manage your f
 
 ## 🖼️ Some Demo Images of the project
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/42f99ba4-0352-4348-8f8e-7262f4be71e5" width="500px">
-    <img src="https://github.com/user-attachments/assets/fa610353-e57c-48a0-b4f7-754c78ee9425" width="500px">
+    <img src="https://github.com/user-attachments/assets/42f99ba4-0352-4348-8f8e-7262f4be71e5" width="250px">
+    <img src="https://github.com/user-attachments/assets/fa610353-e57c-48a0-b4f7-754c78ee9425" width="250px">
 </div>
 
   
