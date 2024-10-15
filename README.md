@@ -26,7 +26,19 @@ Budget Buddy is a simple and intuitive expense tracker to help you manage your f
     <img src="https://github.com/user-attachments/assets/fa610353-e57c-48a0-b4f7-754c78ee9425" width="400px">
 </div>
 
-  
+## 🛠 Setup Guide
+To contribute to Budget Buddy, follow these steps:
+1. Fork the Repository: Click the "Fork" button at the top of this repository.
+2. Clone your Fork into your local machine:
+```bash
+git clone https://github.com/your-username/BuggetBuddy.git
+```
+3. Navigate to the Project Directory:
+```bash
+cd BuggetBuddy
+```
+4. Run Locally: Use VS Code’s Live Server extension or equivalent to run `index.html`.
+   
 ## 🤝 Contribution
 Feel free to contribute to Budget Buddy! If you have any suggestions or find bugs, please open an issue or submit a pull request.
 
