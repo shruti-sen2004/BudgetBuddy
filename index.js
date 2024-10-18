@@ -1,117 +1,123 @@
-const transactions = [];
+const balance = document.getElementById('balance');
+const moneyPlus = document.getElementById('money-plus');
+const moneyMinus = document.getElementById('money-minus');
+const list = document.getElementById('list');
+const form = document.getElementById('form');
+const text = document.getElementById('text');
+const amount = document.getElementById('amount');
+const filter = document.getElementById('filter');
 
-document.getElementById('form').addEventListener('submit', addTransaction);
+let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
 function addTransaction(e) {
-  e.preventDefault();
-
-  const text = document.getElementById('text').value.trim();
-  const amount = parseFloat(document.getElementById('amount').value);
-  const category = e.submitter.textContent.split(' ')[1];
-
-  if (text === '' || isNaN(amount)) {
-    alert('Please add a text and amount');
-  } else {
+    e.preventDefault();
+    
+    if (text.value.trim() === '' || amount.value.trim() === '') {
+        alert('Please add a text and amount');
+        return;
+    }
+    
     const transaction = {
-      id: generateID(),
-      text,
-      amount: category === 'expense' ? -Math.abs(amount) : Math.abs(amount),
-      category
+        id: generateID(),
+        text: text.value,
+        amount: +amount.value,
+        type: e.submitter.dataset.type
     };
-
+    
     transactions.push(transaction);
-    
-    // Remove this line:
-    // document.getElementById('filter').value = category;
-    
-    filterTransactions();
-    updateBalance();
-    updateIncomeExpenses();
+    addTransactionDOM(transaction);
+    updateValues();
     updateLocalStorage();
-    document.getElementById('form').reset();
-  }
+    text.value = '';
+    amount.value = '';
 }
 
 function generateID() {
-  return Math.floor(Math.random() * 100000000);
+    return Math.floor(Math.random() * 100000000);
 }
 
 function addTransactionDOM(transaction) {
-  const sign = transaction.amount < 0 ? '-' : '+';
-  const item = document.createElement('li');
-
-  item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
-  item.innerHTML = `
-        ${transaction.text} <span>${sign} &#8377; ${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i data-lucide="badge-x" class="lucide"></i></button>
+    const sign = transaction.type === 'expense' ? '-' : '+';
+    const item = document.createElement('li');
+    item.classList.add(transaction.type);
+    item.innerHTML = `
+        ${transaction.text} <span>${sign}₹${Math.abs(transaction.amount)}</span>
+        <button class="delete-btn" onclick="removeTransaction(${transaction.id})">
+            <i data-lucide="x" class="lucide"></i>
+        </button>
     `;
+    list.appendChild(item);
+    lucide.createIcons();
+}
 
-  document.getElementById('list').prepend(item);
+function updateValues() {
+    const amounts = transactions.map(transaction => transaction.type === 'expense' ? -transaction.amount : transaction.amount);
+    const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const income = amounts.filter(item => item > 0).reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const expense = (amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) * -1).toFixed(2);
+    
+    balance.textContent = `₹${total}`;
+    moneyPlus.textContent = `₹${income}`;
+    moneyMinus.textContent = `₹${expense}`;
 }
 
 function removeTransaction(id) {
-  const index = transactions.findIndex(transaction => transaction.id === id);
-  if (index !== -1) {
-    transactions.splice(index, 1);
-    updateDOM();
-    updateBalance();
-    updateIncomeExpenses();
+    transactions = transactions.filter(transaction => transaction.id !== id);
     updateLocalStorage();
-  }
-}
-
-function updateDOM(transactionsToDisplay = transactions) {
-  const list = document.getElementById('list');
-  list.innerHTML = '';
-  transactionsToDisplay.forEach(addTransactionDOM);
-}
-
-function updateBalance() {
-  const balance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
-  document.getElementById('balance').innerHTML = `&#8377;${balance.toFixed(2)}`;
-}
-
-function updateIncomeExpenses() {
-  const amounts = transactions.map(transaction => transaction.amount);
-  const income = amounts
-    .filter(amount => amount > 0)
-    .reduce((acc, amount) => acc + amount, 0);
-  const expense = amounts
-    .filter(amount => amount < 0)
-    .reduce((acc, amount) => acc + amount, 0) * -1;
-
-  document.getElementById('money-plus').innerHTML = `+&#8377;${income.toFixed(2)}`;
-  document.getElementById('money-minus').innerHTML = `-&#8377;${expense.toFixed(2)}`;
-  lucide.createIcons();
+    init();
 }
 
 function updateLocalStorage() {
-  localStorage.setItem('transactions', JSON.stringify(transactions));
+    localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
 function filterTransactions() {
-  const filterValue = document.getElementById('filter').value;
-  const filteredTransactions = transactions.filter(transaction => {
-    if (filterValue === 'all') return true;
-    if (filterValue === 'income') return transaction.amount > 0;
-    if (filterValue === 'expense') return transaction.amount < 0;
-    return false;
-  });
-  updateDOM(filteredTransactions);
+    const filterValue = filter.value;
+    const filteredTransactions = transactions.filter(transaction => {
+        if (filterValue === 'all') return true;
+        return transaction.type === filterValue;
+    });
+    init(filteredTransactions);
 }
 
-// Initialize the app
-function init() {
-  const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
-  if (localStorageTransactions) {
-    transactions.push(...localStorageTransactions);
-  }
-  updateDOM();
-  updateBalance();
-  updateIncomeExpenses();
-  lucide.createIcons();
-
-  // Add event listener for filter dropdown
-  document.getElementById('filter').addEventListener('change', filterTransactions);
+function init(transactionsToDisplay = transactions) {
+    list.innerHTML = '';
+    transactionsToDisplay.forEach(addTransactionDOM);
+    updateValues();
 }
+
+form.addEventListener('submit', addTransaction);
+filter.addEventListener('change', filterTransactions);
 
 init();
+
+// Add smooth scrolling
+function scrollToNewTransaction() {
+    list.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Animate balance changes
+function animateValue(element, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        element.textContent = `₹${(progress * (end - start) + start).toFixed(2)}`;
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+// Override updateValues function to include animations
+function updateValues() {
+    const amounts = transactions.map(transaction => transaction.type === 'expense' ? -transaction.amount : transaction.amount);
+    const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const income = amounts.filter(item => item > 0).reduce((acc, item) => (acc += item), 0).toFixed(2);
+    const expense = (amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) * -1).toFixed(2);
+    
+    animateValue(balance, parseFloat(balance.textContent.replace('₹', '')), total, 300);
+    animateValue(moneyPlus, parseFloat(moneyPlus.textContent.replace('₹', '')), income, 300);
+    animateValue(moneyMinus, parseFloat(moneyMinus.textContent.replace('₹', '')), expense, 300);
+}
