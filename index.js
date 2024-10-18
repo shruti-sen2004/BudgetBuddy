@@ -84,6 +84,7 @@ function init(transactionsToDisplay = transactions) {
     list.innerHTML = '';
     transactionsToDisplay.forEach(addTransactionDOM);
     updateValues();
+    lucide.createIcons(); // Create Lucide icons
 }
 
 form.addEventListener('submit', addTransaction);
@@ -121,3 +122,31 @@ function updateValues() {
     animateValue(moneyPlus, parseFloat(moneyPlus.textContent.replace('₹', '')), income, 300);
     animateValue(moneyMinus, parseFloat(moneyMinus.textContent.replace('₹', '')), expense, 300);
 }
+
+// Theme toggle functionality
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    updateTheme();
+});
+
+function updateTheme() {
+    const isDarkMode = body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+}
+
+// Check for saved theme preference
+function loadTheme() {
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    body.classList.toggle('dark-mode', isDarkMode);
+}
+
+// Initialize theme
+loadTheme();
+
+// Call lucide.createIcons() after DOM content is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+});

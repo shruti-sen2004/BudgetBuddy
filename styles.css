@@ -10,6 +10,18 @@
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.dark-mode {
+    --primary-color: #BB86FC;
+    --secondary-color: #03DAC6;
+    --income-color: #00C853;
+    --expense-color: #FF5252;
+    --background-color: #121212;
+    --card-background: #1E1E1E;
+    --text-color: #E0E0E0;
+    --text-light: #BDBDBD;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -21,6 +33,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app-container {
@@ -167,7 +180,8 @@ form input {
 }
 
 .transaction-list li {
-    background-color: #f9f9f9;
+    background-color: var(--card-background);
+    color: var(--text-color);
     padding: 1rem;
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
@@ -179,12 +193,14 @@ form input {
 
 .transaction-list li:hover {
     transform: translateX(5px);
+    background-color: var(--secondary-color);
+    color: var(--card-background);
 }
 
 .transaction-list .delete-btn {
     background-color: transparent;
     border: none;
-    color: var(--expense-color);
+    color: var(--text-color);
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -192,6 +208,7 @@ form input {
 
 .transaction-list li:hover .delete-btn {
     opacity: 1;
+    color: var(--card-background);
 }
 
 .transaction-list .income {
@@ -219,4 +236,25 @@ form input {
     .button-group {
         flex-direction: column;
     }
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.theme-toggle .light-icon,
+.dark-mode .theme-toggle .dark-icon {
+    display: none;
+}
+
+.theme-toggle .dark-icon,
+.dark-mode .theme-toggle .light-icon {
+    display: inline-block;
 }
