@@ -238,14 +238,57 @@ li {
 #date {
  margin-left: 185px;
  color: #453596;
+ border-radius: 5px;
 }
 
 h4.date-header {
-  margin: 25px 0 5px; /* Add margin above to separate from previous group */
+  margin: 25px 0 5px; 
   padding-bottom: 5px;
-  border-bottom: 2px solid #dedede; /* A line to visually separate the date group */
+  border-bottom: 2px solid #dedede; 
   font-size: 1.1em;
   color: #453596; 
-  text-transform: none; /* Do not uppercase the date */
+  text-transform: none; 
   font-weight: 600;
+}
+
+@media (min-width: 800px) {
+    body {
+        align-items: center;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 900px; 
+    }
+
+    
+    .desktop-layout {
+        display: flex;
+        gap: 30px; 
+        align-items: flex-start;
+    }
+
+    .left-panel {
+        flex: 1; 
+        min-width: 350px; 
+    }
+
+    .right-panel {
+        flex: 1; 
+        padding-top: 30px; 
+        padding-left: 50px;
+    }
+
+    #date{
+      margin-left:247px;
+    }
+    
+    input[type="text"],
+    input[type="number"]
+    #category,
+    .btn,
+    .inc-exp-container {
+        width: 100%;
+        max-width: none;
+    }
 }
