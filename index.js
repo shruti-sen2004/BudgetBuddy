@@ -7,22 +7,21 @@ function addTransaction(e) {
 
   const text = document.getElementById('text').value.trim();
   const amount = parseFloat(document.getElementById('amount').value);
+  const date = document.getElementById('date').value;
   const category = e.submitter.textContent.split(' ')[1];
 
-  if (text === '' || isNaN(amount)) {
+  if (text === '' || isNaN(amount) || date === '') {
     alert('Please add a text and amount');
   } else {
     const transaction = {
       id: generateID(),
       text,
       amount: category === 'expense' ? -Math.abs(amount) : Math.abs(amount),
-      category
+      category,
+      date
     };
 
     transactions.push(transaction);
-    
-    // Remove this line:
-    // document.getElementById('filter').value = category;
     
     filterTransactions();
     updateBalance();
@@ -42,10 +41,10 @@ function addTransactionDOM(transaction) {
 
   item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
   item.innerHTML = `
-        ${transaction.text} <span>${sign} &#8377; ${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i data-lucide="badge-x" class="lucide"></i></button>
-    `;
+        ${transaction.text} <span>${sign} &#8377; ${Math.abs(transaction.amount).toFixed(2)}</span><button class="delete-btn" onclick="removeTransaction(${transaction.id})"><i data-lucide="badge-x" class="lucide"></i></button>
+    `; // Reverting to the simpler, original structure now that the date is separate
 
-  document.getElementById('list').prepend(item);
+  return item; // Return the li element
 }
 
 function removeTransaction(id) {
@@ -59,10 +58,45 @@ function removeTransaction(id) {
   }
 }
 
+function groupTransactionsByDate(transactionsArray) {
+  // Sort the transactions first, usually from newest date to oldest
+  const sortedTransactions = [...transactionsArray].sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  return sortedTransactions.reduce((groups, transaction) => {
+    // transaction.date is expected to be an ISO string like "YYYY-MM-DD"
+    const date = transaction.date; 
+    
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+    groups[date].push(transaction);
+    return groups;
+  }, {});
+}
+
 function updateDOM(transactionsToDisplay = transactions) {
   const list = document.getElementById('list');
   list.innerHTML = '';
-  transactionsToDisplay.forEach(addTransactionDOM);
+
+  const groupedTransactions = groupTransactionsByDate(transactionsToDisplay);
+
+  Object.keys(groupedTransactions).forEach(date => {
+    const transactionsOnDate = groupedTransactions[date];
+
+    // Create date header
+    const dateHeader = document.createElement('h4');
+    dateHeader.classList.add('date-header');
+    
+    const formattedDate = new Date(date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short',year: 'numeric'  });
+    dateHeader.textContent = formattedDate;
+    
+    list.appendChild(dateHeader);
+
+    // Append transactions
+    transactionsOnDate.forEach(transaction => {
+        list.appendChild(addTransactionDOM(transaction));
+    });
+  });
 }
 
 function updateBalance() {
@@ -112,6 +146,13 @@ function init() {
 
   // Add event listener for filter dropdown
   document.getElementById('filter').addEventListener('change', filterTransactions);
+
+  // <--- NEW: Set default date to today for convenience
+  const dateInput = document.getElementById('date');
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+  }
 }
 
 init();

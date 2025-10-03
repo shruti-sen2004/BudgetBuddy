@@ -1,5 +1,6 @@
 :root {
   --box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 3px 5px rgba(0, 0, 0, 0.12);
+  --main-color : #453596;
 }
 
 * {
@@ -30,7 +31,7 @@ h1 {
 }
 
 p {
-  color: #453596;
+  color: var(--main-color);
   margin: 0;
 }
 
@@ -85,7 +86,7 @@ h4 {
 label {
   display: inline-block;
   margin: 10px 0;
-  color: #453596;
+  color: var(--main-color);
 }
 
 input[type="text"],
@@ -103,7 +104,7 @@ input[type="number"],
 
 .btn {
   cursor: pointer;
-  background-color: #453596;
+  background-color: var(--main-color);
   box-shadow: var(--box-shadow);
   color: #fff;
   border: 0;
@@ -130,7 +131,7 @@ input[type="number"],
 .list li {
   background-color: #fff;
   box-shadow: var(--box--shadow);
-  color: #453596;
+  color: var(--main-color);
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -231,5 +232,20 @@ li {
   border-radius: 5px;
   border: 1px solid #dedede;
   background-color: #e6e3f1;
-  color: #453596;
+  color: var(--main-color);
+}
+
+#date {
+ margin-left: 185px;
+ color: #453596;
+}
+
+h4.date-header {
+  margin: 25px 0 5px; /* Add margin above to separate from previous group */
+  padding-bottom: 5px;
+  border-bottom: 2px solid #dedede; /* A line to visually separate the date group */
+  font-size: 1.1em;
+  color: #453596; 
+  text-transform: none; /* Do not uppercase the date */
+  font-weight: 600;
 }
