@@ -238,7 +238,9 @@ li {
 #date {
  margin-left: 185px;
  color: #453596;
- border-radius: 5px;
+ background-color: #e6e3f1;
+ border-radius: 2px;
+ border: 1px solid #dedede;
 }
 
 h4.date-header {
@@ -356,10 +358,11 @@ h4.date-header {
 
 .dark-mode input[type="text"],
 .dark-mode input[type="number"],
-.dark-mode #filter {
+.dark-mode #filter,.dark-mode #date{
   background-color: var(--dark-card-bg);
   border-color: #989898;
   color: var(--dark-text-light);
+  
 }
 
 .dark-mode #filter {
