@@ -3,32 +3,41 @@ const transactions = [];
 document.getElementById('form').addEventListener('submit', addTransaction);
 
 function addTransaction(e) {
-  e.preventDefault();
+  e.preventDefault();
 
-  const text = document.getElementById('text').value.trim();
-  const amount = parseFloat(document.getElementById('amount').value);
-  const date = document.getElementById('date').value;
-  const category = e.submitter.textContent.split(' ')[1];
+  const text = document.getElementById('text').value.trim();
+  const amount = parseFloat(document.getElementById('amount').value);
+  
+  // ⭐ FIX: Store the element in a variable (dateInput)
+  const dateInput = document.getElementById('date'); 
+  const date = dateInput.value; // Then get the value from the element
+  
+  const category = e.submitter.textContent.split(' ')[1];
 
-  if (text === '' || isNaN(amount) || date === '') {
-    alert('Please add a text and amount');
-  } else {
-    const transaction = {
-      id: generateID(),
-      text,
-      amount: category === 'expense' ? -Math.abs(amount) : Math.abs(amount),
-      category,
-      date
-    };
+  if (text === '' || isNaN(amount) || date === '') {
+    alert('Please add a text and amount');
+  } else {
+    const transaction = {
+      id: generateID(),
+      text,
+      amount: category === 'expense' ? -Math.abs(amount) : Math.abs(amount),
+      category,
+      date
+    };
 
-    transactions.push(transaction);
+    transactions.push(transaction);
+    
+    filterTransactions();
+    updateBalance();
+    updateIncomeExpenses();
+    updateLocalStorage();
+
+    document.getElementById('form').reset();
     
-    filterTransactions();
-    updateBalance();
-    updateIncomeExpenses();
-    updateLocalStorage();
-    document.getElementById('form').reset();
-  }
+    // ⭐ FIX: Now dateInput is defined and can be used to set the value
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today; 
+  }
 }
 
 function generateID() {
@@ -147,7 +156,6 @@ function init() {
   // Add event listener for filter dropdown
   document.getElementById('filter').addEventListener('change', filterTransactions);
 
-  // <--- NEW: Set default date to today for convenience
   const dateInput = document.getElementById('date');
   if (dateInput) {
     const today = new Date().toISOString().split('T')[0];
