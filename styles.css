@@ -379,3 +379,7 @@ h4.date-header {
 .dark-mode h4.date-header {
     color: var(--dark-text-medium);
 }
+
+.dark-mode input::placeholder {
+  color: #b3b3b3; 
+}
