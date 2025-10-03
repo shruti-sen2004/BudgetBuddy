@@ -142,12 +142,45 @@ function filterTransactions() {
   updateDOM(filteredTransactions);
 }
 
+function toggleDarkMode() {
+    const isDarkMode = document.body.classList.toggle('dark-mode');
+    
+    const iconElement = document.querySelector('#mode-toggle .lucide');
+    if (iconElement) {
+      iconElement.setAttribute('data-lucide', isDarkMode ? 'sun' : 'moon');
+      lucide.createIcons(); 
+    }
+
+    localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+}
+
+function loadDarkModePreference() {
+    const savedMode = localStorage.getItem('darkMode');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedMode === 'enabled' || (savedMode === null && prefersDark)) {
+        document.body.classList.add('dark-mode');
+        const iconElement = document.querySelector('#mode-toggle .lucide');
+        if (iconElement) {
+          iconElement.setAttribute('data-lucide', 'sun');
+        }
+    } else {
+        
+        const iconElement = document.querySelector('#mode-toggle .lucide');
+        if (iconElement) {
+          iconElement.setAttribute('data-lucide', 'moon');
+        }
+    }
+}
+
+
 // Initialize the app
 function init() {
   const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
   if (localStorageTransactions) {
     transactions.push(...localStorageTransactions);
   }
+  loadDarkModePreference();
   updateDOM();
   updateBalance();
   updateIncomeExpenses();
@@ -155,7 +188,7 @@ function init() {
 
   // Add event listener for filter dropdown
   document.getElementById('filter').addEventListener('change', filterTransactions);
-
+  document.getElementById('mode-toggle').addEventListener('click', toggleDarkMode);
   const dateInput = document.getElementById('date');
   if (dateInput) {
     const today = new Date().toISOString().split('T')[0];

@@ -292,3 +292,90 @@ h4.date-header {
         max-width: none;
     }
 }
+
+/* --- Dark Mode Variables and Base Styles --- */
+
+.dark-mode {
+  --dark-bg: #1a1a2e;
+  --dark-card-bg: #525284;
+  --dark-text-light: #f7f7f7;
+  --dark-text-medium: #bb86fc; 
+  --dark-shadow: 0 1px 2px rgba(255, 255, 255, 0.1), 0 3px 5px rgba(255, 255, 255, 0.12);
+  
+  
+  background-color: var(--dark-bg);
+  color: var(--dark-text-light); 
+}
+
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; 
+}
+
+#mode-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: #453596;
+}
+
+.dark-mode #mode-toggle {
+    color: var(--dark-text-light);
+}
+
+.dark-mode p#money-plus{
+  color: #2ecc71;
+}
+
+.dark-mode p#money-minus{
+  color: #c0392b;
+}
+
+.dark-mode label,
+.dark-mode h4 {
+  color: var(--dark-text-light); 
+}
+
+.dark-mode #balance,.dark-mode p{
+  color: var(--dark-text-medium); 
+}
+
+
+.dark-mode .inc-exp-container {
+  box-shadow: var(--dark-shadow);
+}
+.dark-mode .inc-exp-container > div {
+    color: #fff;
+}
+
+
+.dark-mode input[type="text"],
+.dark-mode input[type="number"],
+.dark-mode #filter {
+  background-color: var(--dark-card-bg);
+  border-color: #989898;
+  color: var(--dark-text-light);
+}
+
+.dark-mode #filter {
+    color: var(--dark-text-light);
+}
+
+.dark-mode .list li {
+  background-color: var(--dark-card-bg);
+  box-shadow: var(--dark-shadow);
+  color: var(--dark-text-light);
+}
+
+.dark-mode h3 {
+    border-bottom-color: #a1a1a1;
+}
+
+.dark-mode h4.date-header {
+    color: var(--dark-text-medium);
+}
