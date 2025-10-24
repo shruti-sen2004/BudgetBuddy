@@ -22,9 +22,8 @@ Budget Buddy is a simple and intuitive expense tracker to help you manage your f
 
 ## Showcase 🖼️
 <div align="center">
-    <img src="" width="400px">
-    <img src="" width="400px">
-   To be provided soon....
+    <img src="./assets/mock_pic_1.png" width="500px">
+    <img src="./assets/mock_pic_2.png" width="500px" height="400px">
 </div>
 
 ## Setup Guide 🛠 
